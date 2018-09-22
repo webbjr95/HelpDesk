@@ -1,0 +1,95 @@
+﻿@model HelpDeskCodingExercise.Models.TicketModels
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<h1 style="font-size:26px; font-weight:800;">[Ticket #@Model.Id] - Editing</h1>
+<hr>
+<span>
+    <button class="btn btn-default">
+        @Html.ActionLink("Create Ticket", "Create") |
+        @Html.ActionLink("Back to List", "OpenTickets")
+    </button>
+</span>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "control-label col-md-2" }, rows = "6", cols = "50" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Status,
+                                              new SelectList(Enum.GetNames(typeof(HelpDeskCodingExercise.Models.TicketModels.TicketStatusDropDown)),
+                                              "Assign Tech"))
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Severity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Severity,
+                                              new SelectList(Enum.GetNames(typeof(HelpDeskCodingExercise.Models.TicketModels.SeverityTypeDropDown)),
+                                              "Change Severity"))
+                @Html.ValidationMessageFor(model => model.Severity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Assignee, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Assignee,
+                                                     new SelectList(Enum.GetNames(typeof(HelpDeskCodingExercise.Models.TicketModels.AvailableTechsDropDown)),
+                                                     "Change Tech"))
+                @Html.ValidationMessageFor(model => model.Assignee, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreatedDate, "Created On", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

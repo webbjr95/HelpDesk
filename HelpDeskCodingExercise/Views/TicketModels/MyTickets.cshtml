@@ -1,0 +1,74 @@
+﻿@model IEnumerable<HelpDeskCodingExercise.Models.TicketModels>
+
+@{
+    ViewBag.Title = "MyTickets";
+}
+
+<h2>My Tickets</h2>
+
+<button>
+    @Html.ActionLink("Create Ticket", "Create")
+</button>
+<p></p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Id", "MyTickets", new { sortOrder = ViewBag.IdSortParm, statusType = "open" })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.ActionLink("Severity", "MyTickets", new { sortOrder = ViewBag.SeveritySortParm, statusType = "open" })
+        </th>
+        <th>
+            @Html.ActionLink("Date Created", "MyTickets", new { sortOrder = ViewBag.DateSortParm, statusType = "open" })
+        </th>
+        <th>
+            @Html.ActionLink("Assignee", "MyTickets", new { sortOrder = ViewBag.AssigneeSortParm, statusType = "open" })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Severity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignee)
+            </td>
+            <td>
+                <button class="btn btn-default">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>
